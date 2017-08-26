@@ -13,9 +13,22 @@ import {Observable} from 'rxjs/Observable';
 export class GlobalInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, delegate: HttpHandler): Observable<HttpEvent<any>> {
-    console.log('INTERCEPTED :-)')
-    return delegate.handle(req)
+    const transformedReq = this.transformRequest(req)
+    return delegate.handle(transformedReq)
   }
+
+  transformRequest(req: HttpRequest<any>): HttpRequest<any> {
+
+    const options: any = {}
+
+    if (req.method === 'post') {
+      // transform request here
+      // options.setHeaders = {'Content-Type': 'multipart/form-data'}
+    }
+
+    return Object.keys(options).length ? req.clone(options) : req
+  }
+
 }
 
 export const GLOBAL_INTERCEPTER_PROVIDER = {
