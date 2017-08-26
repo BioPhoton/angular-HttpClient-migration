@@ -14,7 +14,7 @@ export class GlobalInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, delegate: HttpHandler): Observable<HttpEvent<any>> {
     const transformedReq = this.transformRequest(req)
-    return delegate.handle(transformedReq)
+    return delegate.handle(transformedReq).map(this.transformResponse);
   }
 
   transformRequest(req: HttpRequest<any>): HttpRequest<any> {
@@ -29,6 +29,16 @@ export class GlobalInterceptor implements HttpInterceptor {
     return Object.keys(options).length ? req.clone(options) : req
   }
 
+  private transformResponse(res: HttpResponse<any>): HttpResponse<any> {
+    const options: any = {}
+
+    if (res instanceof HttpResponse) {
+      // add options here
+      // options.body = [{...}]
+    }
+
+    return Object.keys(options).length ? res.clone(options) : res
+  }
 }
 
 export const GLOBAL_INTERCEPTER_PROVIDER = {
