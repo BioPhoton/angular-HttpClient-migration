@@ -3,7 +3,7 @@
   <button class="btn btn-outline-secondary" [routerLink]="['../detail']"><i class="fa fa-list-ul"></i> Detail</button>
   Edit Flight
 </h1>
-<small>{{message}}</small>
+<div class="alert alert-danger" *ngIf="message">{{message}}</div>
 <div class="row">
   <div class="col-6">
     <div class="card">
