@@ -3,6 +3,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import {HttpModule} from '@angular/http';
 import {FlightService} from './services/flight.service';
+import {UpgradedFlightService} from './services/upgraded-flight.service';
 
 @NgModule({
   imports: [
@@ -17,7 +18,7 @@ export class CoreModule {
     return {
       ngModule: CoreModule,
       providers: [
-        FlightService
+        {provide: FlightService, useClass: UpgradedFlightService}
       ]
     }
   }
