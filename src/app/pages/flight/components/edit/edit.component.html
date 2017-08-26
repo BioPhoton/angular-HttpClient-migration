@@ -1,0 +1,49 @@
+<h1>
+  <button class="btn btn-outline-secondary" (click)="goBack()"><i class="fa fa-arrow-left"></i></button>
+  <button class="btn btn-outline-secondary" [routerLink]="['../detail']"><i class="fa fa-list-ul"></i> Detail</button>
+  Edit Flight
+</h1>
+<small>{{message}}</small>
+<div class="row">
+  <div class="col-6">
+    <div class="card">
+      <div class="card-block">
+
+        <form [formGroup]="flightForm" novalidate>
+
+
+            <div class="form-group">
+              <label>Update Id:</label>
+              <input type="text" name="id" formControlName="id" class="form-control">
+            </div>
+
+            <div class="form-group">
+              <label>Update From:</label>
+              <input type="text" class="form-control"
+                name="from"
+                formControlName="from">
+            </div>
+
+            <div class="form-group">
+              <label>Update To:</label>
+              <input type="text" name="to" formControlName="to" class="form-control">
+            </div>
+
+            <div class="form-group">
+              <label>Update Date:</label>
+              <input type="text" name="date" formControlName="date" class="form-control">
+            </div>
+
+            <br/>
+
+            <div class="form-group">
+              <button (click)="create(flightForm)" class="btn btn-primary">
+                Create Flight
+              </button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>
