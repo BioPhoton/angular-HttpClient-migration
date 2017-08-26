@@ -1,12 +1,12 @@
-import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs/Rx';
+import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http'
+import {Injectable} from '@angular/core'
+import {Observable} from 'rxjs/Rx'
 
-import 'rxjs/Rx';
+import 'rxjs/Rx'
 
-import {environment} from '../../../environments/environment';
-import {Flight} from '../models/Flight';
-import {IFlightService} from './flight.service.interface';
+import {environment} from '../../../environments/environment'
+import {Flight} from '../models/Flight'
+import {IFlightService} from './flight.service.interface'
 
 @Injectable()
 export class UpgradedFlightService implements IFlightService {
@@ -19,7 +19,7 @@ export class UpgradedFlightService implements IFlightService {
   }
 
   findById(id: string): Observable<Flight> {
-    const reqObj = { params: null};
+    const reqObj = { params: null}
     const params = new HttpParams().set('id', id)
     // Wont work!! => params.set('id', id)
     reqObj.params = params
@@ -27,14 +27,16 @@ export class UpgradedFlightService implements IFlightService {
     return this.http
       .get<Flight>(this.baseUrl, reqObj)
       .catch(error => Observable.throw(error.json()))
+
   }
+
 
   find(from: string, to: string):  Observable<Flight[]> {
     const reqObj = {
       params: new HttpParams()
         .set('from', from || '')
         .set('to', to || '')
-    };
+    }
 
     return this
       .http
