@@ -1,7 +1,4 @@
-import {
-  HttpClient, HttpErrorResponse, HttpParams,
-  HttpResponse
-} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 
@@ -50,9 +47,21 @@ export class UpgradedFlightService implements IFlightService {
       .http
       .post<Flight>(this.baseUrl, flight)
       .catch((e: HttpErrorResponse) => {
-        let errMsg = 'Client Error'
-        if (e.error instanceof Error) {
-          errMsg = 'ServerError'
+        let errMsg = 'Client Error or Network Error' + e.error.message
+        if (e instanceof HttpErrorResponse) {
+          const status = e.status
+          console.log(status, e);
+          switch (status as any) {
+            case 400:
+              errMsg = e.message
+              break
+            case 500:
+              errMsg = 'You got a 500! :-('
+              break
+            default:
+              errMsg = 'Server Error'
+          }
+
         }
         return Observable.throw({message: errMsg})
       })
