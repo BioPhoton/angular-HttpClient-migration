@@ -49,9 +49,7 @@ export class UpgradedFlightService implements IFlightService {
       .catch((e: HttpErrorResponse) => {
         let errMsg = 'Client Error or Network Error' + e.error.message
         if (e instanceof HttpErrorResponse) {
-          const status = e.status
-          console.log(status, e);
-          switch (status as any) {
+          switch (e.status) {
             case 400:
               errMsg = e.message
               break
