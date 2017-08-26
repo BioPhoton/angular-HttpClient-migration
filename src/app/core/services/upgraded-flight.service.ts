@@ -1,4 +1,7 @@
-import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
+import {
+  HttpClient, HttpErrorResponse, HttpParams,
+  HttpResponse
+} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 
@@ -25,11 +28,11 @@ export class UpgradedFlightService implements IFlightService {
     reqObj.params = params
 
     return this.http
-      .get(this.baseUrl, reqObj)
+      .get<Flight>(this.baseUrl, reqObj)
       .catch(error => Observable.throw(error.json()))
   }
 
-  find(from: string, to: string): Observable<Flight[]> {
+  find(from: string, to: string):  Observable<Flight[]> {
     const reqObj = {
       params: new HttpParams()
         .set('from', from || '')
@@ -38,14 +41,14 @@ export class UpgradedFlightService implements IFlightService {
 
     return this
       .http
-      .get(this.baseUrl, reqObj)
+      .get<Flight[]>(this.baseUrl, reqObj)
       .catch(error => Observable.throw(error.json()))
   }
 
   create(flight: Flight): Observable<Flight> {
     return this
       .http
-      .post(this.baseUrl, flight)
+      .post<Flight>(this.baseUrl, flight)
       .catch((e: HttpErrorResponse) => {
         let errMsg = 'Client Error'
         if (e.error instanceof Error) {
