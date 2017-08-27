@@ -27,7 +27,7 @@ describe('AdvancedUpgradedFlightService', () => {
 
   it('expects a GET request', inject([UpgradedFlightService, HttpTestingController], (service: UpgradedFlightService, httpMock: HttpTestingController) => {
     const expectedUrl = 'http://angular.at/api/flight?id=3';
-    const expectedMethod = RequestMethod.Get;
+    const expectedMethod = 'Get';
     const expectedResult: any = {
       id: 3,
       from: 'Wien',
@@ -50,7 +50,7 @@ describe('AdvancedUpgradedFlightService', () => {
     // this URL, so it will match and return a mock request. The mock request
     // can be used to deliver a response or make assertions against the
     // request. In this case, the test asserts that the request is a GET.
-    expect(req.request.method).toBe('GET');
+    expect(req.request.method).toBe(expectedMethod);
 
     // Next, fulfill the request by transmitting a response.
     req.flush(expectedResult);
